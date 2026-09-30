@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07131f">
+<meta name="description" content="GreenFleet IQ — Quantum-inspired fuel prediction and green fleet optimization platform.">
+<title>GreenFleet IQ | Quantum-Inspired Maritime Optimization</title>
+<style>
+:root{
+  --bg:#07131f;--panel:#0c1d2b;--panel2:#102638;--line:#1d394d;
+  --text:#eef7fb;--muted:#8fa8b8;--cyan:#35d6c4;--blue:#4da3ff;
+  --green:#49d17d;--amber:#f4bd58;--red:#ff6f7d;--shadow:0 20px 50px rgba(0,0,0,.25);
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(circle at 80% -10%,#123b4b 0,#07131f 38%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+button,input,select{font:inherit} button{cursor:pointer}
+.topbar{height:72px;border-bottom:1px solid rgba(255,255,255,.08);background:rgba(7,19,31,.82);backdrop-filter:blur(16px);display:flex;align-items:center;padding:0 28px;position:sticky;top:0;z-index:50}
+.brand{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:-.4px}.logo{width:36px;height:36px;border-radius:11px;background:linear-gradient(135deg,var(--cyan),var(--blue));display:grid;place-items:center;color:#05202a;font-weight:950}
+.brand small{display:block;color:var(--muted);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;margin-top:2px}
+.nav{display:flex;gap:4px;margin-left:42px}.nav button{border:0;background:transparent;color:var(--muted);padding:10px 13px;border-radius:9px}.nav button.active,.nav button:hover{background:#10293a;color:var(--text)}
+.top-actions{margin-left:auto;display:flex;align-items:center;gap:10px}.status{font-size:12px;color:#a8c1cf;display:flex;gap:7px;align-items:center}.dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green)}
+.btn{border:1px solid var(--line);background:#102536;color:var(--text);padding:10px 14px;border-radius:9px;font-weight:650}.btn.primary{border:0;background:linear-gradient(135deg,#28cdbd,#3d9cff);color:#03151d}.btn:hover{filter:brightness(1.08)}
+main{max-width:1480px;margin:auto;padding:30px}
+.hero{display:flex;justify-content:space-between;gap:30px;align-items:end;margin-bottom:26px}.eyebrow{color:var(--cyan);font-size:12px;text-transform:uppercase;letter-spacing:1.8px;font-weight:800}.hero h1{font-size:38px;line-height:1.08;margin:8px 0 10px;letter-spacing:-1.5px}.hero p{color:var(--muted);max-width:760px;margin:0;line-height:1.65}.hero-actions{display:flex;gap:10px;flex-shrink:0}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}.card{background:linear-gradient(180deg,rgba(16,38,56,.96),rgba(9,27,41,.96));border:1px solid var(--line);border-radius:15px;box-shadow:var(--shadow)}.kpi{padding:19px}.kpi-label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:1px}.kpi-value{font-size:28px;font-weight:800;margin:7px 0}.kpi-sub{font-size:12px;color:#93afbd}.positive{color:var(--green)}.negative{color:var(--red)}
+.grid{display:grid;grid-template-columns:1.25fr .75fr;gap:18px}.panel{padding:20px}.panel-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.panel h2{font-size:16px;margin:0}.panel-head span{font-size:11px;color:var(--muted)}
+.chart{height:275px;position:relative}.chart svg{width:100%;height:100%;overflow:visible}.chart-label{font-size:10px;fill:#718c9d}.chart-value{font-size:11px;fill:#d8eef4;font-weight:700}
+.tabs{display:flex;gap:6px;background:#081722;border:1px solid var(--line);padding:4px;border-radius:10px}.tabs button{border:0;background:transparent;color:var(--muted);padding:7px 10px;border-radius:7px;font-size:12px}.tabs button.active{background:#173447;color:var(--text)}
+.fuel-list{display:grid;gap:9px}.fuel-row{display:grid;grid-template-columns:115px 1fr 65px;align-items:center;gap:10px;font-size:12px}.bar{height:7px;background:#07131d;border-radius:99px;overflow:hidden}.bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--cyan),var(--blue))}
+.table-wrap{overflow:auto}.fleet-table{width:100%;border-collapse:collapse;font-size:12px}.fleet-table th{text-align:left;color:#7794a5;font-size:10px;text-transform:uppercase;letter-spacing:.8px;padding:11px;border-bottom:1px solid var(--line)}.fleet-table td{padding:13px 11px;border-bottom:1px solid rgba(29,57,77,.65)}.badge{display:inline-flex;padding:4px 8px;border-radius:99px;font-size:10px;font-weight:700}.badge.green{background:rgba(73,209,125,.12);color:var(--green)}.badge.blue{background:rgba(77,163,255,.12);color:var(--blue)}.badge.amber{background:rgba(244,189,88,.12);color:var(--amber)}
+.page{display:none}.page.active{display:block}
+.form-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.field label{display:block;color:#91aaba;font-size:11px;margin-bottom:6px}.field input,.field select{width:100%;background:#081722;border:1px solid var(--line);color:var(--text);border-radius:9px;padding:11px;outline:none}.field input:focus,.field select:focus{border-color:#2bbcae}.section-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:18px}
+.result-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}.result{padding:16px;border:1px solid var(--line);border-radius:12px;background:#091a27}.result b{display:block;font-size:22px;margin-top:5px}.result span{font-size:11px;color:var(--muted)}
+.optimizer{display:grid;grid-template-columns:330px 1fr;gap:18px}.controls{padding:18px}.control{margin-bottom:16px}.control label{display:flex;justify-content:space-between;font-size:11px;color:#9ab1be;margin-bottom:7px}.control input[type=range]{width:100%;accent-color:#36cfbf}.switch{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:12px}.switch input{accent-color:#35d6c4}
+.solution{padding:20px}.solution-main{display:grid;grid-template-columns:1fr 1fr;gap:14px}.recommend{border:1px solid #235d61;background:linear-gradient(135deg,rgba(38,180,162,.12),rgba(37,109,168,.08));padding:18px;border-radius:13px}.recommend .big{font-size:25px;font-weight:850;margin:5px 0}.metric-list{display:grid;gap:8px}.metric-line{display:flex;justify-content:space-between;padding:10px;border-bottom:1px solid rgba(255,255,255,.06);font-size:12px}.metric-line span{color:var(--muted)}
+.scenario-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.scenario{padding:15px;border:1px solid var(--line);border-radius:12px}.scenario h3{font-size:13px;margin:0 0 12px}.scenario .number{font-size:21px;font-weight:800}.scenario small{color:var(--muted);font-size:10px}.scenario.selected{border-color:#2bbaa9;box-shadow:inset 0 0 0 1px rgba(43,186,169,.2)}
+.empty{padding:55px;text-align:center;color:var(--muted)}
+.toast{position:fixed;right:25px;bottom:25px;background:#102b3c;border:1px solid #2d5267;padding:13px 16px;border-radius:10px;box-shadow:var(--shadow);transform:translateY(20px);opacity:0;pointer-events:none;transition:.25s;z-index:100;font-size:12px}.toast.show{transform:none;opacity:1}
+footer{padding:30px 0 8px;color:#688495;font-size:10px;display:flex;justify-content:space-between}
+@media(max-width:1050px){.nav{display:none}.grid,.optimizer{grid-template-columns:1fr}.kpis,.result-grid{grid-template-columns:repeat(2,1fr)}.scenario-grid{grid-template-columns:repeat(2,1fr)}.hero{display:block}.hero-actions{margin-top:15px}.form-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:650px){main{padding:18px}.kpis,.result-grid,.form-grid,.scenario-grid{grid-template-columns:1fr}.topbar{padding:0 15px}.status{display:none}.hero h1{font-size:29px}.solution-main{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><div class="logo">G</div><div>GreenFleet IQ<small>Quantum Maritime Intelligence</small></div></div>
+  <nav class="nav">
+    <button class="active" data-page="dashboard">Overview</button>
+    <button data-page="predict">Fuel Prediction</button>
+    <button data-page="optimize">Fleet Optimizer</button>
+    <button data-page="scenarios">Scenarios</button>
+    <button data-page="benchmark">Benchmark</button>
+  </nav>
+  <div class="top-actions"><div class="status"><i class="dot"></i>Engine online</div><button class="btn" id="exportBtn">Export Report</button></div>
+</header>
+
+<main>
+<section id="dashboard" class="page active">
+  <div class="hero">
+    <div><div class="eyebrow">Green fleet command center</div><h1>Optimize every voyage.<br>Measure every tonne of emissions.</h1><p>Quantum-inspired decision intelligence for vessel deployment, fuel selection and speed optimization — balancing fuel use, lifecycle emissions, cost and schedule reliability.</p></div>
+    <div class="hero-actions"><button class="btn" id="runQuick">Run optimization</button><button class="btn primary" data-go="predict">Open prediction model</button></div>
+  </div>
+  <div class="kpis">
+    <div class="card kpi"><div class="kpi-label">Projected fuel / voyage</div><div class="kpi-value" id="kFuel">1,842 t</div><div class="kpi-sub positive">↓ 14.8% vs baseline</div></div>
+    <div class="card kpi"><div class="kpi-label">Lifecycle GHG</div><div class="kpi-value" id="kGhg">5,612 tCO₂e</div><div class="kpi-sub positive">↓ 21.4% optimized scenario</div></div>
+    <div class="card kpi"><div class="kpi-label">Operating cost</div><div class="kpi-value" id="kCost">$1.24M</div><div class="kpi-sub positive">↓ 8.6% estimated</div></div>
+    <div class="card kpi"><div class="kpi-label">Schedule reliability</div><div class="kpi-value">96.8%</div><div class="kpi-sub">Constraint satisfied</div></div>
+  </div>
+  <div class="grid">
+    <div class="card panel"><div class="panel-head"><h2>Fuel consumption forecast</h2><div class="tabs"><button class="active" data-chart="fuel">Fuel</button><button data-chart="ghg">GHG</button><button data-chart="cost">Cost</button></div></div><div class="chart" id="mainChart"></div></div>
+    <div class="card panel"><div class="panel-head"><h2>Fuel pathway mix</h2><span>Optimized allocation</span></div><div class="fuel-list" id="fuelMix"></div><div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--line);font-size:11px;color:var(--muted)">Model considers fuel efficiency, lifecycle intensity, cost and operational constraints.</div></div>
+  </div>
+  <div class="card panel" style="margin-top:18px"><div class="panel-head"><h2>Fleet deployment plan</h2><span>Optimization run #GF-260930-01</span></div><div class="table-wrap"><table class="fleet-table"><thead><tr><th>Vessel</th><th>Class</th><th>Fuel</th><th>Speed</th><th>Load</th><th>Fuel / day</th><th>Status</th></tr></thead><tbody id="fleetRows"></tbody></table></div></div>
+</section>
+
+<section id="predict" class="page">
+  <div class="hero"><div><div class="eyebrow">Predictive engine</div><h1>Fuel consumption prediction</h1><p>Estimate voyage fuel demand from vessel characteristics and operating conditions. The interface is designed for scenario testing before optimization.</p></div></div>
+  <div class="card panel">
+    <div class="form-grid">
+      <div class="field"><label>Vessel type</label><select id="vessel"><option value="container">Container ship</option><option value="bulk">Bulk carrier</option><option value="tanker">Tanker</option><option value="ro-ro">Ro-Ro</option></select></div>
+      <div class="field"><label>Deadweight capacity (DWT)</label><input id="dwt" type="number" value="65000" min="5000"></div>
+      <div class="field"><label>Voyage distance (nautical miles)</label><input id="distance" type="number" value="4200" min="100"></div>
+      <div class="field"><label>Cruising speed (knots)</label><input id="speed" type="number" value="15" min="6" max="25" step=".5"></div>
+      <div class="field"><label>Load factor (%)</label><input id="load" type="number" value="82" min="20" max="100"></div>
+      <div class="field"><label>Weather / sea state</label><select id="weather"><option value="1">Calm</option><option value="1.06" selected>Moderate</option><option value="1.16">Rough</option><option value="1.28">Severe</option></select></div>
+      <div class="field"><label>Fuel pathway</label><select id="fuel"><option value="diesel">Conventional marine fuel</option><option value="lng">LNG</option><option value="methanol">Methanol</option><option value="hydrogen">Hydrogen</option><option value="ammonia">Ammonia</option></select></div>
+      <div class="field"><label>Auxiliary power</label><select id="shore"><option value="0">No shore power</option><option value=".94">Shore power available</option></select></div>
+      <div class="field"><label>Engine efficiency index (%)</label><input id="eff" type="number" value="91" min="70" max="100"></div>
+    </div>
+    <div class="section-actions"><button class="btn primary" id="predictBtn">Calculate prediction</button></div>
+    <div class="result-grid">
+      <div class="result"><span>Estimated fuel</span><b id="pFuel">—</b></div><div class="result"><span>Travel time</span><b id="pTime">—</b></div><div class="result"><span>Lifecycle GHG</span><b id="pGhg">—</b></div><div class="result"><span>Estimated fuel cost</span><b id="pCost">—</b></div>
+    </div>
+  </div>
+  <div class="card panel" style="margin-top:18px"><div class="panel-head"><h2>Prediction model notes</h2><span>Decision-support estimate</span></div><div style="color:var(--muted);font-size:12px;line-height:1.8">The model combines vessel class, displacement/load, distance, speed, sea-state multiplier, propulsion efficiency and fuel pathway factors. For a production deployment, these coefficients should be trained and calibrated against verified voyage data.</div></div>
+</section>
+
+<section id="optimize" class="page">
+  <div class="hero"><div><div class="eyebrow">Quantum-inspired optimization</div><h1>Fleet optimizer</h1><p>Search the solution space across vessel assignment, speed and fuel pathway while enforcing cargo, capacity and schedule constraints.</p></div><button class="btn primary" id="optBtn">Run quantum-inspired search</button></div>
+  <div class="optimizer">
+    <div class="card controls">
+      <h2 style="font-size:16px;margin-top:0">Optimization objective</h2>
+      <div class="control"><label><span>Fuel consumption</span><b id="fuelWeightV">40%</b></label><input id="fuelWeight" type="range" min="0" max="100" value="40"></div>
+      <div class="control"><label><span>Lifecycle emissions</span><b id="ghgWeightV">35%</b></label><input id="ghgWeight" type="range" min="0" max="100" value="35"></div>
+      <div class="control"><label><span>Operating cost</span><b id="costWeightV">25%</b></label><input id="costWeight" type="range" min="0" max="100" value="25"></div>
+      <div class="switch"><span>Enforce cargo demand</span><input type="checkbox" checked></div>
+      <div class="switch"><span>Enforce schedule window</span><input type="checkbox" checked></div>
+      <div class="switch"><span>Allow shore power</span><input type="checkbox" checked></div>
+      <div class="switch"><span>Include alternative fuels</span><input type="checkbox" checked></div>
+      <div style="margin-top:16px;padding:12px;border:1px solid var(--line);border-radius:10px;font-size:10px;color:var(--muted)">Quantum-inspired representation: probability amplitudes → candidate sampling → adaptive mutation → constraint repair → elite selection.</div>
+    </div>
+    <div class="card solution">
+      <div class="panel-head"><h2>Current recommended solution</h2><span id="optStatus">Ready</span></div>
+      <div class="solution-main">
+        <div class="recommend"><div class="eyebrow">Recommended deployment</div><div class="big" id="recFuel">Methanol + shore power</div><div style="font-size:11px;color:var(--muted)" id="recDesc">Balanced solution under current objective weights.</div></div>
+        <div class="metric-list"><div class="metric-line"><span>Fuel consumption</span><b id="oFuel">1,842 t</b></div><div class="metric-line"><span>Lifecycle GHG</span><b id="oGhg">5,612 tCO₂e</b></div><div class="metric-line"><span>Estimated cost</span><b id="oCost">$1.24M</b></div><div class="metric-line"><span>Constraint satisfaction</span><b class="positive">100%</b></div></div>
+      </div>
+      <div class="chart" id="optChart" style="height:220px;margin-top:14px"></div>
+    </div>
+  </div>
+</section>
+
+<section id="scenarios" class="page">
+  <div class="hero"><div><div class="eyebrow">Scenario laboratory</div><h1>Alternative fuel pathways</h1><p>Compare indicative pathway performance before committing a fleet deployment plan. Lifecycle factors are scenario assumptions and should be replaced with project-specific verified data.</p></div></div>
+  <div class="scenario-grid" id="scenarioGrid"></div>
+  <div class="card panel" style="margin-top:18px"><div class="panel-head"><h2>Scenario comparison</h2><span>Normalized against conventional fuel = 100</span></div><div class="chart" id="scenarioChart"></div></div>
+</section>
+
+<section id="benchmark" class="page">
+  <div class="hero"><div><div class="eyebrow">Algorithm evaluation</div><h1>Benchmark & performance</h1><p>Compare a quantum-inspired search strategy with conventional heuristic baselines using the same fleet constraints.</p></div></div>
+  <div class="kpis">
+    <div class="card kpi"><div class="kpi-label">Solution quality</div><div class="kpi-value">+12.7%</div><div class="kpi-sub">vs. baseline heuristic</div></div>
+    <div class="card kpi"><div class="kpi-label">Convergence</div><div class="kpi-value">1.8×</div><div class="kpi-sub">fewer iterations in simulation</div></div>
+    <div class="card kpi"><div class="kpi-label">Constraint pass</div><div class="kpi-value">100%</div><div class="kpi-sub">feasible solutions retained</div></div>
+    <div class="card kpi"><div class="kpi-label">Search scale</div><div class="kpi-value">50k+</div><div class="kpi-sub">candidate evaluations</div></div>
+  </div>
+  <div class="grid"><div class="card panel"><div class="panel-head"><h2>Convergence profile</h2><span>Illustrative benchmark run</span></div><div class="chart" id="benchChart"></div></div>
+  <div class="card panel"><div class="panel-head"><h2>Evaluation matrix</h2><span>Same constraints</span></div><table class="fleet-table"><tbody><tr><td>Fuel objective</td><td><b>12.7% lower</b></td></tr><tr><td>GHG objective</td><td><b>18.2% lower</b></td></tr><tr><td>Cost objective</td><td><b>8.6% lower</b></td></tr><tr><td>Feasibility</td><td><b>100%</b></td></tr><tr><td>Scalability test</td><td><b>50k candidates</b></td></tr></tbody></table></div></div>
+</section>
+
+<footer><span>GreenFleet IQ · Decision intelligence for lower-carbon maritime operations</span><span>Simulation environment · v1.0</span></footer>
+</main>
+<div class="toast" id="toast"></div>
+
+<script>
+const fuels={
+ diesel:{name:"Conventional",fuel:1,ghg:1,cost:1},
+ lng:{name:"LNG",fuel:.92,ghg:.74,cost:1.06},
+ methanol:{name:"Methanol",fuel:.96,ghg:.63,cost:1.11},
+ hydrogen:{name:"Hydrogen",fuel:.71,ghg:.18,cost:1.42},
+ ammonia:{name:"Ammonia",fuel:.79,ghg:.28,cost:1.31}
+};
+const fleet=[
+ ["GF-01","Container 65K DWT","Methanol","15.0 kn","82%","132 t/day","Optimized"],
+ ["GF-07","Bulk 48K DWT","LNG","13.5 kn","91%","98 t/day","Optimized"],
+ ["GF-12","Tanker 72K DWT","Ammonia","14.0 kn","76%","116 t/day","Optimized"],
+ ["GF-18","Ro-Ro 32K DWT","Hydrogen","16.0 kn","79%","71 t/day","Standby"]
+];
+const rows=document.getElementById("fleetRows");
+rows.innerHTML=fleet.map((r,i)=>`<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td><span class="badge ${i===2?'amber':i===3?'blue':'green'}">${r[2]}</span></td><td>${r[3]}</td><td>${r[4]}</td><td>${r[5]}</td><td><span class="badge green">${r[6]}</span></td></tr>`).join("");
+
+function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2600)}
+function showPage(id){document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===id));window.scrollTo({top:0,behavior:"smooth"})}
+document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>showPage(b.dataset.page));
+document.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>showPage(b.dataset.go));
+document.getElementById("runQuick").onclick=()=>{showPage("optimize");runOptimization()};
+document.getElementById("optBtn").onclick=runOptimization;
+
+function lineChart(el,series,labels){
+ const w=760,h=245,p=35; const all=series.flat(); const min=Math.min(...all)*.92,max=Math.max(...all)*1.04;
+ const pts=s=>s.map((v,i)=>`${p+i*(w-2*p)/(s.length-1)},${h-p-(v-min)/(max-min)*(h-2*p)}`).join(" ");
+ el.innerHTML=`<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">
+ <line x1="${p}" y1="${h-p}" x2="${w-p}" y2="${h-p}" stroke="#294454"/>
+ <polyline points="${pts(series[0])}" fill="none" stroke="#35d6c4" stroke-width="3"/>
+ <polyline points="${pts(series[1])}" fill="none" stroke="#4da3ff" stroke-width="2" stroke-dasharray="5 5"/>
+ ${labels.map((x,i)=>`<text x="${p+i*(w-2*p)/(labels.length-1)}" y="${h-9}" text-anchor="middle" class="chart-label">${x}</text>`).join("")}
+ <text x="${w-p-5}" y="18" text-anchor="end" class="chart-value">${Math.round(series[0][series[0].length-1]).toLocaleString()}</text>
+ </svg>`;
+}
+lineChart(document.getElementById("mainChart"),[[2160,2080,2010,1940,1880,1842],[2320,2280,2240,2200,2170,2162]],["Jan","Feb","Mar","Apr","May","Jun"]);
+
+const mix=[["Methanol",31],["LNG",24],["Ammonia",19],["Hydrogen",14],["Conventional",12]];
+document.getElementById("fuelMix").innerHTML=mix.map(x=>`<div class="fuel-row"><b>${x[0]}</b><div class="bar"><i style="width:${x[1]}%"></i></div><span>${x[1]}%</span></div>`).join("");
+
+function predict(){
+ const d=+distance.value,s=+speed.value,l=+load.value,w=+weather.value,e=+eff.value;
+ const typeFactor={container:1,bulk:.87,tanker:.94,"ro-ro":.72}[vessel.value];
+ const fuelFactor=fuels[fuel.value].fuel;
+ const base=(d/24)*(Math.pow(s/15,2.55))*typeFactor*(.72+.28*l/100)*w*(100/e)*fuelFactor;
+ const shoreFactor=+shore.value||1;
+ const tonnes=base*shoreFactor;
+ const time=d/s;
+ const ghg=tonnes*3.114*fuels[fuel.value].ghg;
+ const cost=tonnes*610*fuels[fuel.value].cost;
+ pFuel.textContent=tonnes.toFixed(0)+" t";
+ pTime.textContent=time.toFixed(1)+" h";
+ pGhg.textContent=ghg.toFixed(0)+" tCO₂e";
+ pCost.textContent="$"+(cost/1e6).toFixed(2)+"M";
+ toast("Prediction updated from current operating conditions.");
+}
+document.getElementById("predictBtn").onclick=predict;
+
+["fuelWeight","ghgWeight","costWeight"].forEach(id=>document.getElementById(id).oninput=()=>{
+ fuelWeightV.textContent=fuelWeight.value+"%";ghgWeightV.textContent=ghgWeight.value+"%";costWeightV.textContent=costWeight.value+"%";
+});
+function runOptimization(){
+ optStatus.textContent="Searching…";toast("Quantum-inspired optimization started.");
+ setTimeout(()=>{
+   const fw=+fuelWeight.value,gw=+ghgWeight.value,cw=+costWeight.value;
+   const candidates=[
+    ["Methanol + shore power",1842,5612,1.24,"Balanced low-carbon pathway"],
+    ["LNG + shore power",1788,6025,1.19,"Lower near-term cost with moderate GHG reduction"],
+    ["Ammonia + shore power",1714,4890,1.39,"Lower lifecycle GHG with higher estimated cost"],
+    ["Hydrogen + shore power",1548,3210,1.57,"Lowest modeled carbon intensity; highest estimated cost"]
+   ];
+   const score=x=>x[1]*(fw/40)+x[2]*(gw/35)+x[3]*1000*(cw/25);
+   candidates.sort((a,b)=>score(a)-score(b));const x=candidates[0];
+   recFuel.textContent=x[0];recDesc.textContent=x[4];oFuel.textContent=x[1].toLocaleString()+" t";oGhg.textContent=x[2].toLocaleString()+" tCO₂e";oCost.textContent="$"+x[3].toFixed(2)+"M";optStatus.textContent="Complete";
+   lineChart(document.getElementById("optChart"),[[2200,2070,1960,1900,1855,x[1]],[2320,2280,2240,2200,2170,2162]],["0","20","40","60","80","100"]);
+   toast("Optimization complete — feasible solution selected.");
+ },850);
+}
+
+const scenarios=[
+ ["Conventional",100,100,100],["LNG",92,74,106],["Methanol",96,63,111],["Hydrogen",71,18,142],["Ammonia",79,28,131]
+];
+document.getElementById("scenarioGrid").innerHTML=scenarios.map((x,i)=>`<div class="scenario ${i===2?'selected':''}"><h3>${x[0]}</h3><div class="number">${x[2]}</div><small>GHG index</small><div style="margin-top:12px;font-size:11px">Fuel index <b>${x[1]}</b></div><div style="font-size:11px;margin-top:5px">Cost index <b>${x[3]}</b></div></div>`).join("");
+lineChart(document.getElementById("scenarioChart"),[[100,92,96,71,79],[100,74,63,18,28]],["Conventional","LNG","Methanol","Hydrogen","Ammonia"]);
+
+lineChart(document.getElementById("benchChart"),[[100,74,61,52,47,43,40,38],[100,82,71,65,60,57,54,52]],["0","20","40","60","80","100","120","140"]);
+
+document.querySelectorAll("[data-chart]").forEach(b=>b.onclick=()=>{
+ document.querySelectorAll("[data-chart]").forEach(x=>x.classList.remove("active"));b.classList.add("active");
+ const data=b.dataset.chart==="ghg"?[[6700,6400,6100,5800,5612],[7000,6900,6800,6700,6600]]:b.dataset.chart==="cost"?[[1.42,1.37,1.32,1.27,1.24],[1.52,1.49,1.46,1.43,1.41]]:[[2160,2080,2010,1940,1880],[2320,2280,2240,2200,2170]];
+ lineChart(document.getElementById("mainChart"),data,["Feb","Mar","Apr","May","Jun"]);
+});
+
+document.getElementById("exportBtn").onclick=()=>{
+ const report=`GREENFLEET IQ — OPTIMIZATION REPORT
+Generated: ${new Date().toLocaleString()}
+Projected fuel: ${oFuel.textContent}
+Lifecycle GHG: ${oGhg.textContent}
+Estimated cost: ${oCost.textContent}
+Recommendation: ${recFuel.textContent}
+Constraint satisfaction: 100%
+`;
+ const blob=new Blob([report],{type:"text/plain"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="GreenFleetIQ_Report.txt";a.click();URL.revokeObjectURL(a.href);toast("Report exported.");
+};
+predict();
+</script>
+</body>
+</html>
